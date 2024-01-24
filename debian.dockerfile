@@ -1,6 +1,6 @@
 FROM debian:latest
 
-# Get add-apt-repository
+# Install curl
 RUN apt update \
     && apt install -y \
     curl 
