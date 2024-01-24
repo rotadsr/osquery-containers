@@ -4,7 +4,8 @@ FROM ubuntu:latest
 RUN apt update \
     && apt upgrade -y \
     && apt install -y \
-    curl
+    curl \
+    gnupg2
 
 # Add the official osquery repository
 RUN curl -fsSL  https://pkg.osquery.io/deb/pubkey.gpg |  gpg --dearmor -o /etc/apt/keyrings/osquery.gpg \
