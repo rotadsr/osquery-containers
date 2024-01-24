@@ -9,7 +9,6 @@ RUN curl -L https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-K
     && sudo yum-config-manager --enable osquery-s3-rpm-repo 
 
 # Install osquery
-#RUN sudo yum -y install osquery
 RUN sudo yum update --assumeyes && sudo yum -y install osquery
 
 #Execute osquery at the start
