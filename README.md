@@ -15,5 +15,6 @@ Usage is pretty simple:
 Now you'd be able to use osquery natively in the environment of your choice.
 
 ## Notes
+* There is no need to specify osquery configuration file as there is no need to have the osquery daemon (`osqueryd`) running scheduled searches.
 * Containers are running as root because you'll be only running osquery interface (`osqueryi`) on them, once you exit from the osquery interface, you'll be exiting the container.
 * This project is not intended to be something you'll find in production environments. The main purpose is to be able to test the latest osquery release without the need to be building everything from scratch.
