@@ -7,10 +7,10 @@ Imagine that you want to test the latest osquery version in a certain environmen
 ## Usage
 Usage is pretty simple:
 1. Ensure you have Docker up and running.
-2. Download an available `Dockerfile` from list and run. [LIST WIP]
-3. Build the file by running `docker build . -f <IMAGE>.dockerfile`
-4. Execute `docker build -t <IMAGE>-osquery .`
-5. Run the container with `docker run -it <IMAGE>-osquery`
+2. Download an available `Dockerfile` from list and run.
+3. Build the file by running `docker build . -f <IMAGENAME>.dockerfile`
+4. Execute `docker build -t <IMAGENAME>-osquery . -f <IMAGENAME>.dockerfile`
+5. Run the container with `docker run -it <IMAGENAME>-osquery`
 
 Now you'd be able to use osquery natively in the environment of your choice.
 
