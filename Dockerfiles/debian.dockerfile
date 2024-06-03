@@ -13,5 +13,10 @@ RUN mkdir -p /etc/apt/keyrings \
 # Install osquery
 RUN apt update && apt install -y osquery
 
+# Run as a non-root user
+RUN groupadd -g 10001 osquery && \
+    useradd -u 10000 -g osquery osquery \
+    && chown -R osquery:osquery /home
+
 #Execute osquery at the start
 CMD ["osqueryi"]
