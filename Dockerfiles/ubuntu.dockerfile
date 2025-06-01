@@ -20,4 +20,5 @@ RUN groupadd -g 10001 osquery && \
     && chown -R osquery:osquery /home/ubuntu
 
 #Execute osquery at the start
+ENTRYPOINT ["bash", "-c", "echo \" \n\n 🚀 Starting container... \n\n 🚨 DO NOT USE THIS CONTAINER IN PRODUCTION ENVIRONMENTS! 🚨 \n\n \"; exec \"$@\"", "--"]
 CMD ["osqueryi"]
