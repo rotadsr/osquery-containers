@@ -6,7 +6,9 @@ RUN yum -y install \
     sudo
 
 # Add the official osquery repository
-RUN curl -L https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery \
+RUN curl -L -k https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery \
+    && echo "sslverify=false" >> /etc/yum.conf \
+    && yum-config-manager --save --setopt=sslverify=false \
     && sudo yum-config-manager --add-repo https://pkg.osquery.io/rpm/osquery-s3-rpm.repo \
     && sudo yum-config-manager --enable osquery-s3-rpm-repo 
 
