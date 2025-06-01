@@ -12,6 +12,8 @@ Usage is pretty simple:
 4. Execute `docker build -t <IMAGENAME>-osquery . -f <IMAGENAME>.dockerfile`
 5. Run the container with `docker run -it <IMAGENAME>-osquery`
 
+You can also run the `build_containers.sh` script to automatically set everything up!
+
 Now you'd be able to use osquery natively in the environment of your choice.
 
 ## Notes
