@@ -8,9 +8,8 @@ Imagine that you want to test the latest osquery version in a certain environmen
 Usage is pretty simple:
 1. Ensure you have Docker up and running.
 2. Download an available `Dockerfile` from list and run.
-3. Build the file by running `docker build . -f <IMAGENAME>.dockerfile`
-4. Execute `docker build -t <IMAGENAME>-osquery . -f <IMAGENAME>.dockerfile`
-5. Run the container with `docker run -it <IMAGENAME>-osquery`
+3. Execute `docker build -t <IMAGENAME>-osquery . -f <IMAGENAME>.dockerfile` to build the container
+4. Run the container with `docker run -it <IMAGENAME>-osquery`
 
 You can also run the `build_containers.sh` script to automatically set everything up!
 
