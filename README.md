@@ -31,8 +31,22 @@ Usage is pretty simple:
 
 You can also run the `build_containers.sh` script to automatically build and run a container of your choice.
 
+## Configuration
+A minimal default configuration is included in every image under `/etc/osquery/`:
+
+| File | Purpose |
+|---|---|
+| `osquery.conf` | Base configuration with UTC timestamps and events enabled |
+| `osquery.flags` | Runtime flags: enables event-based tables, suppresses log noise |
+
+Event-based tables (process events, socket events, file events, etc.) are disabled by default in osquery. The bundled flags file enables them automatically so new event-driven tables work out of the box without any extra setup.
+
+You can override either file at runtime by bind-mounting your own:
+```
+docker run -it --rm -v /path/to/your/osquery.flags:/etc/osquery/osquery.flags <IMAGENAME>-osquery
+```
+
 ## Notes
 * Containers run as a non-root `osquery` user (UID 10000).
 * The first time a container starts, a welcome banner is shown with a reminder to run `osqueryi`. On subsequent restarts of the same container the banner is skipped.
-* There is no need to specify an osquery configuration file as there is no need to have the osquery daemon (`osqueryd`) running scheduled searches.
 * This project is not intended for production environments. The main purpose is to be able to test the latest osquery release without the need to build everything from scratch.
