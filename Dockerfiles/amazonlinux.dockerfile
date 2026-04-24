@@ -23,6 +23,11 @@ RUN groupadd -g 10001 osquery && \
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# Install default osquery configuration
+RUN mkdir -p /etc/osquery
+COPY osquery.conf /etc/osquery/osquery.conf
+COPY osquery.flags /etc/osquery/osquery.flags
+
 USER osquery
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
