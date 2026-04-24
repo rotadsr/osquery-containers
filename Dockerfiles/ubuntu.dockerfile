@@ -17,11 +17,15 @@ RUN apt update && apt install -y osquery
 
 # Run as a non-root user
 RUN groupadd -g 10001 osquery && \
-    useradd -u 10000 -g osquery osquery \
-    && chown -R osquery:osquery /home/ubuntu
+    useradd -u 10000 -g osquery -m osquery
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Install default osquery configuration
+RUN mkdir -p /etc/osquery
+COPY osquery.conf /etc/osquery/osquery.conf
+COPY osquery.flags /etc/osquery/osquery.flags
 
 USER osquery
 
