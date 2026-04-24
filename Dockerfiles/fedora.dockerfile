@@ -11,8 +11,19 @@ RUN curl -kL https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-
 # Install osquery
 RUN sudo yum update --assumeyes && sudo yum -y install osquery
 
+# Run as a non-root user
+RUN groupadd -g 10001 osquery && \
+    useradd -u 10000 -g osquery -m osquery
+
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Install default osquery configuration
+RUN mkdir -p /etc/osquery
+COPY osquery.conf /etc/osquery/osquery.conf
+COPY osquery.flags /etc/osquery/osquery.flags
+
+USER osquery
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/bin/bash"]
