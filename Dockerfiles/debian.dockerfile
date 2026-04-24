@@ -1,9 +1,10 @@
 FROM debian:latest
 
-# Install curl
+# Install curl and other utils
 RUN apt update \
     && apt install -y \
-    curl 
+    curl \
+    bsdmainutils
 
 # Add the official osquery repository
 RUN mkdir -p /etc/apt/keyrings \
@@ -20,4 +21,3 @@ RUN groupadd -g 10001 osquery && \
 
 #Execute osquery at the start
 ENTRYPOINT ["bash", "-c", "echo \" \n\n 🚀 Starting container... \n\n 🚨 DO NOT USE THIS CONTAINER IN PRODUCTION ENVIRONMENTS! 🚨 \n\n \"; exec \"$@\"", "--"]
-CMD ["osqueryi"]
