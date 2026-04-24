@@ -7,10 +7,10 @@ Imagine that you want to test the latest osquery version in a certain environmen
 ## Supported distros
 | Dockerfile | Base image |
 |---|---|
-| `ubuntu.dockerfile` | Ubuntu (latest) |
-| `debian.dockerfile` | Debian (latest) |
-| `amazonlinux.dockerfile` | Amazon Linux (latest) |
-| `fedora.dockerfile` | Fedora (latest) |
+| `ubuntu.dockerfile` | Ubuntu |
+| `debian.dockerfile` | Debian |
+| `amazonlinux.dockerfile` | Amazon Linux |
+| `fedora.dockerfile` | Fedora |
 
 ## Usage
 Usage is pretty simple:
