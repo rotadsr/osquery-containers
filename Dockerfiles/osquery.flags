@@ -1,0 +1,2 @@
+--disable_events=false
+--logger_min_status=2
