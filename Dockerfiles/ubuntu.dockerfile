@@ -5,7 +5,8 @@ RUN apt update \
     && apt upgrade -y \
     && apt install -y \
     curl \
-    gnupg2
+    gnupg2 \
+    bsdmainutils
 
 # Add the official osquery repository
 RUN curl -fsSL  https://pkg.osquery.io/deb/pubkey.gpg |  gpg --dearmor -o /etc/apt/keyrings/osquery.gpg \
@@ -21,4 +22,3 @@ RUN groupadd -g 10001 osquery && \
 
 #Execute osquery at the start
 ENTRYPOINT ["bash", "-c", "echo \" \n\n 🚀 Starting container... \n\n 🚨 DO NOT USE THIS CONTAINER IN PRODUCTION ENVIRONMENTS! 🚨 \n\n \"; exec \"$@\"", "--"]
-CMD ["osqueryi"]
