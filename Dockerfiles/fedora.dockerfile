@@ -1,7 +1,7 @@
 FROM fedora:latest
 
 # Install yum-utils
-RUN yum -y install yum-utils
+RUN yum -y install yum-utils util-linux
 
 # Add the official osquery repository
 RUN curl -kL https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery \
@@ -13,4 +13,3 @@ RUN sudo yum update --assumeyes && sudo yum -y install osquery
 
 #Execute osquery at the start
 ENTRYPOINT ["bash", "-c", "echo \" \n\n 🚀 Starting container... \n\n 🚨 DO NOT USE THIS CONTAINER IN PRODUCTION ENVIRONMENTS! 🚨 \n\n \"; exec \"$@\"", "--"]
-CMD ["osqueryi"]
