@@ -1,4 +1,17 @@
 #! /bin/bash 
+
+# Build an image, keeping the full output in build-<name>.log and reporting failures
+build_image() {
+    local name="$1"
+    if docker build -t "${name}-osquery" . -f "${name}.dockerfile" > "build-${name}.log" 2>&1; then
+        echo -e "\nContainer ${name}-osquery is ready to use! 📦 "
+    else
+        echo -e "\n❌ Build of ${name}-osquery FAILED. Last lines of build-${name}.log:\n"
+        tail -n 15 "build-${name}.log"
+        return 1
+    fi
+}
+
 echo "Please choose an option:"
 echo "1) Build and run Amazon Linux container"
 echo "2) Build and run Fedora container"
@@ -12,41 +25,29 @@ read -p "Enter your choice [0-5]: " choice
 case $choice in
     1)
         echo -e "\n\nBuilding Amazon Linux container... ⏳ \n"
-        docker build -t amazonlinux-osquery . -f amazonlinux.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer is ready to use! 📦 "
-        docker run -it --name "amazonlinux-osquery" amazonlinux-osquery
+        build_image amazonlinux && docker run -it --name "amazonlinux-osquery" amazonlinux-osquery
         ;;
     2)
         echo -e "\n\nBuilding Fedora container... ⏳ \n"
-        docker build -t fedora-osquery . -f fedora.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer is ready to use! 📦 "
-        docker run -it --name "fedora-osquery" fedora-osquery
+        build_image fedora && docker run -it --name "fedora-osquery" fedora-osquery
         ;;
     3)
         echo -e "\n\nBuilding Debian container... ⏳ \n"
-        docker build -t debian-osquery . -f debian.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer is ready to use! 📦 "
-        docker run -it --name "debian-osquery" debian-osquery
+        build_image debian && docker run -it --name "debian-osquery" debian-osquery
         ;;
     4)
         echo -e "\n\nBuilding Ubuntu container... ⏳ \n"
-        docker build -t ubuntu-osquery . -f ubuntu.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer is ready to use! 📦 "
-        docker run -it --name "ubuntu-osquery" ubuntu-osquery
+        build_image ubuntu && docker run -it --name "ubuntu-osquery" ubuntu-osquery
         ;;
     5)
         echo -e "\n\nBuilding Amazon Linux container... ⏳ \n"
-        docker build -t amazonlinux-osquery . -f amazonlinux.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer amazonlinux-osquery is ready to use! 📦 "
+        build_image amazonlinux
         echo -e "\n\nBuilding Fedora container... ⏳ \n"
-        docker build -t fedora-osquery . -f fedora.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer fedora-osquery is ready to use! 📦 "
+        build_image fedora
         echo -e "\n\nBuilding Debian container... ⏳ \n"
-        docker build -t debian-osquery . -f debian.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer debian-osquery is ready to use! 📦 "
+        build_image debian
         echo -e "\n\nBuilding Ubuntu container... ⏳ \n"
-        docker build -t ubuntu-osquery . -f ubuntu.dockerfile > /dev/null 2>&1
-        echo -e "\nContainer ubuntu-osquery is ready to use! 📦 "
+        build_image ubuntu
         echo -e "\nAll containers are built but not run. You can run them individually using 'docker run -it --name <container_name> <image_name>' command."
         ;;
     *)
